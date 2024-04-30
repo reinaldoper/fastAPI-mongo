@@ -18,6 +18,12 @@ make docker
 make run
 ```
 
+## Rodar os testes:
+
+```shell
+make test
+```
+
 ## Esta é uma API simples para gerenciar produtos em uma loja. Ela permite a criação, leitura, atualização e exclusão de produtos.
 
 ## Endpoints

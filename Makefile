@@ -7,9 +7,6 @@ docker:
 run:
 	@uvicorn store.main:app --reload
 
-pre-commit:
-	@pre-commit install
-
 test:
 	@pytest
 
