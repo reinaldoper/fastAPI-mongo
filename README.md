@@ -24,9 +24,9 @@ make run
 make test
 ```
 
-## Este é o gerenciamento de  produtos em uma loja. Ela permite a criação, leitura, atualização e exclusão de produtos.
+## Este é o gerenciamento de  produtos e clientes em uma loja. Ela permite a criação, leitura, atualização e exclusão de produtos e clientes.
 
-## Endpoints
+## Endpoints da base de dados Produtos
 ### Criação de Produto
 - URL: /products/
 - Método: POST
@@ -88,7 +88,7 @@ id (UUID): ID único do produto
 ```
 ---
 
-## Endpoints
+## Endpoints da base de dados Clientes
 ### Criação de CLientes
 - URL: /clients/
 - Método: POST
