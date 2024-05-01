@@ -25,8 +25,8 @@ async def post(
         return await usecase.create(body=body)
     except ValidationError as e:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    except NotFoundException as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e.message))
 
 
 @router.get(path="/{id}", status_code=status.HTTP_200_OK)
@@ -52,8 +52,8 @@ async def patch(
 ) -> ClientUpdateOut:
     try:
         return await usecase.update(id=id, body=body)
-    except ResponseValidationError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"CLient not found with id: %s" % id)
+    except NotFoundException as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=exc.message)
 
 
 @router.delete(path="/{id}", status_code=status.HTTP_204_NO_CONTENT)
