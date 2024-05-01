@@ -1,6 +1,5 @@
 from typing import List
 from fastapi import APIRouter, Body, Depends, HTTPException, Path, status
-from fastapi.exceptions import ResponseValidationError
 from pydantic import UUID4, ValidationError
 from store.core.exceptions import NotFoundException
 
@@ -14,17 +13,13 @@ router = APIRouter(tags=["clients"])
 async def post(
     body: ClientIn = Body(...), usecase: ClientUsecase = Depends()
 ) -> ClientOut:
-    if not body.name:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Name is required")
-    if body.quantity is None or body.quantity <= 0:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid quantity")
-    if body.product_id is None:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Product_id is required")
-    
     try:
-        return await usecase.create(body=body)
+        if (not body.name or len(body.name) == 0) and (body.quantity is None or body.quantity <= 0) and (body.product_id is None or body.product_id != UUID4):
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid params")
+        else:
+            return await usecase.create(body=body)
     except ValidationError as e:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(e))
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=e.message)
     except NotFoundException as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e.message))
 
