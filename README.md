@@ -1,5 +1,5 @@
 
-# API de Gerenciamento de Produtos
+# API de Gerenciamento de Produtos e Clientes
 ## Instalar as dependências:
 
 ```shell
@@ -24,7 +24,7 @@ make run
 make test
 ```
 
-## Esta é uma API simples para gerenciar produtos em uma loja. Ela permite a criação, leitura, atualização e exclusão de produtos.
+## Este é o gerenciamento de  produtos em uma loja. Ela permite a criação, leitura, atualização e exclusão de produtos.
 
 ## Endpoints
 ### Criação de Produto
@@ -85,6 +85,66 @@ price (float): Novo preço do produto
 
 ```shell
 id (UUID): ID único do produto
+```
+---
+
+## Endpoints
+### Criação de CLientes
+- URL: /clients/
+- Método: POST
+- Código de Status: 201 - Created
+- Descrição: Cria um novo cliente com os dados fornecidos.
+- Parâmetros do Corpo da Requisição:
+
+```shell
+name (string): Nome do cliente (obrigatório)
+quantity (int): Quantidade de produtos em estoque (obrigatório, maior que zero)
+product_id (UUID): Id do produto associado (obrigatório, maior que zero)
+```
+
+### Obtenção de Clientes
+- URL: /clients/{id}
+- Método: GET
+- Código de Status: 200 - OK
+- Descrição: Retorna os detalhes de um cliente específico com base no ID fornecido.
+- Parâmetros da URL:
+
+```shell
+id (UUID): ID único do cliente
+```
+
+### Listagem de Clientes
+- URL: /clients/
+- Método: GET
+- Código de Status: 200 - OK
+- Descrição: Retorna uma lista de todos os clientes disponíveis.
+
+### Atualização de Cliente
+- URL: /clients/{id}
+- Método: PATCH
+- Código de Status: 200 - OK
+- Descrição: Atualiza os detalhes de um cliente específico com base no ID fornecido.
+- Parâmetros da URL:
+
+```shell
+id (UUID): ID único do cliente
+```
+
+- Parâmetros do Corpo da Requisição:
+
+```shell
+quantity (int): Nova quantidade do produto em estoque
+```
+
+### Exclusão de Cliente
+- URL: /pclients/{id}
+- Método: DELETE
+- Código de Status: 204 - No Content
+- Descrição: Remove um cliente específico com base no ID fornecido.
+- Parâmetros da URL:
+
+```shell
+id (UUID): ID único do cliente
 ```
 
 ### Tratamento de Erros
